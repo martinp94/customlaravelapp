@@ -67,7 +67,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $user = User::find($id);
+
+        $user->update([
+            'bio' => $request['bio'],
+            'email' => $request['email'],
+            'name' => $request['name'],
+            'type' => $request['type'],
+        ]);
+
+        return Response::json($user);
     }
 
     /**
@@ -78,6 +88,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return Response::json($user);
     }
 }

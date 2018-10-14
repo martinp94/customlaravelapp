@@ -8,9 +8,25 @@
 require('./bootstrap');
 
 import moment from 'moment';
+import Swal from 'sweetalert2';
+
+window.swal = Swal;
+
+const toastTopRight = Swal.mixin({
+	position: 'top-end',
+	type: 'success',
+	title: 'Your work has been saved',
+	showConfirmButton: false,
+	timer: 1500,
+	heightAuto: false
+});
+
+window.toastTopRight = toastTopRight;
 
 window.Vue = require('vue');
 import { Form, HasError, AlertError } from 'vform';
+
+import VueProgressBar from 'vue-progressbar';
 
 window.Form = Form;
 
@@ -35,6 +51,21 @@ const router = new VueRouter({
 Vue.filter('myDate', (date) => {
 	return moment(date).add(2, 'hours').format('DD. MMMM YYYY, hh:mm:ss');
 });
+
+const VueProgressBarOptions = {
+  color: '#40e52d',
+  failedColor: '#c11717',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  }
+}
+
+Vue.use(VueProgressBar, VueProgressBarOptions);
+
+window.Fire = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
